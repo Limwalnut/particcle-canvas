@@ -1,4 +1,7 @@
 import FishLarva from './fishLarva'
+import Egg from './egg'
+import FishLarvaEgg from './fishLarvaEgg'
+import Paramecium from './paramecium'
 
 let canvas
 let ctx
@@ -13,32 +16,31 @@ let init_num = max_particles
  * @num:number number of particles
  */
 function popolate(num) {
-    for (var i = 0; i < num; i++) {
-      setTimeout(
-        (function (x) {
-          return function () {
-            let random = Math.random();
-            // ------------------------------------
-            // Set type of planktom
-            let type = new FishLarva(ctx);
-            // if (!time_to_recreate) {
-            //   if (random > 0.97) type = new FishEgg(canvas);
-            //   if (random < 0.1 && random > 0) type = new Paramecium(canvas);
-            // }
-            // if (random > 0.1 && random < 0.8) type = new FishLarvaEgg(canvas);
-  
-            // if(random < .1) this.type  = "bryozoan"
-            // ------------------------------------
-            // Add particle
-            particles.push(type);
-          };
-        })(i),
-        frequency * i
-      );
-    }
-    return particles.length;
-  }
+  for (var i = 0; i < num; i++) {
+    setTimeout(
+      (function (x) {
+        return function () {
+          let random = Math.random()
+          // ------------------------------------
+          // Set type of planktom
+          let type = new FishLarva(ctx)
+          if (!time_to_recreate) {
+            if (random > 0.97) type = new Egg(ctx)
+            if (random < 0.1 && random > 0) type = new Paramecium(ctx)
+          }
+          if (random > 0.1 && random < 0.8) type = new FishLarvaEgg(ctx)
 
+          // if(random < .1) this.type  = "bryozoan"
+          // ------------------------------------
+          // Add particle
+          particles.push(type)
+        }
+      })(i),
+      frequency * i
+    )
+  }
+  return particles.length
+}
 
 /* Function to init canvas*/
 function initCanvas() {
@@ -46,7 +48,7 @@ function initCanvas() {
   canvas.width = window.innerWidth
   canvas.height = window.innerHeight
   ctx = canvas.getContext('2d')
-  popolate(max_particles);
+  popolate(max_particles)
   update()
 }
 
