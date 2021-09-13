@@ -15,7 +15,7 @@ class FishLarva {
     this.w = window.innerWidth
     this.h = window.innerHeight
     this.radius = random * 1.3
-    this.color = '#fff256'
+    this.color = '#ffb62a'
   }
 
   render() {
